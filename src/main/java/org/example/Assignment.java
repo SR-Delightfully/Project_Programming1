@@ -1,6 +1,9 @@
 package org.example;
 import lombok.*;
 
+import java.util.Arrays;
+import java.util.Random;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
@@ -19,23 +22,32 @@ public class Assignment {
     public void calcAssignmentAvg() {
         //TODO:
         // calculate average score for one assignment
+        int[] testScores = {70, 95, 63, 85, 37};
+
     }
 
     public void generateRandomScore() {
-        //TODO:
-        // generate random scores for all students in an assignemnt
-        // if num is 0, generate random score in range of [0,60)
-        // if num is 1 or 2, generate random score in range of [60,70)
-        // if num is 3 or 4, generate random score in range of [70,80)
-        // if num is 5,6,7 or 8, generate random score in range of [80, 90)
-        // if num is 9 or 10, generate random score in range of [90,100)
+        Random random = new Random();
+        int randNum = random.nextInt(10+1);
+        int randScore = switch (randNum) {
+            case 0 -> random.nextInt(0, 60 - 1);
+            case 1, 2 -> random.nextInt(60, 70 - 1);
+            case 3, 4 -> random.nextInt(70, 80 - 1);
+            case 5, 6, 7, 8 -> random.nextInt(80, 90 - 1);
+            case 9, 10 -> random.nextInt(90, 100);
+            default -> 0;
+        };
     }
 
+    @Override
     public String toString() {
-        //TODO:
-        // generate string to represent an assignment
-        // with assignment Id, assignmentName, weight, and maxScore.
-        return "";
+        return "Assignment{" +
+                "assignmentId='" + assignmentId + '\'' +
+                ", assignemntName='" + assignemntName + '\'' +
+                ", weight=" + weight +
+                ", assignmentAverage=" + assignmentAverage +
+                ", maxScore=" + maxScore +
+                ", scores=" + Arrays.toString(scores) +
+                '}';
     }
-
 }

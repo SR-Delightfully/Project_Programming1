@@ -9,17 +9,29 @@ public class Student {
     // Field members:
     private String studentId;
     private String studentName;
-    //private Gender gender;
+    private Gender gender;
+    private Address address;
     private Department department;
     //private Course[] registeredCourses;
-    private static int nextId;
+    private static int nextId = 1 ;
 
     // All arguments constructor:
-    public Student(String studentId, String studentName, Department department, int nextId) {
-        this.studentId = studentId;
+    public Student(String studentName, Gender gender, Address address, Department department) {
+        this.studentId = getNextId();
         this.studentName = studentName;
+        this.gender = gender;
+        this.address = address;
         this.department = department;
-        this.nextId = nextId;
+    }
+
+    public static String getNextId() {
+        String num = Integer.toString(nextId);
+        String zeroes = "";
+        while (zeroes.length() + num.length() < 5) {
+            zeroes += '0';
+        }
+        nextId++;
+        return 'S' + zeroes + num;
     }
 
     //public boolean registerCourse(Course course) {
@@ -42,15 +54,16 @@ public class Student {
     }
 
     public String toSimplifiedString() {
-        //TODO:
-        // convert student to a simple string with only studentId, studentName and departmentName
-        // this method is called in Course toString().
+//        return  studentId + " " + studentName + " " + department.getDepartmentName();
         return "";
     }
 
+    @Override
     public String toString() {
-        //TODO:
-        // convert student to string that contains studentId, studentName, gender, address, department, and registeredCourses
-        return "";
+        return "Student{" +
+                "studentId='" + studentId + '\'' +
+                ", studentName='" + studentName + '\'' +
+                ", department=" + department +
+                '}';
     }
 }
