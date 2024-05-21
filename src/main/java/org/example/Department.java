@@ -14,17 +14,75 @@ public class Department {
 
     // All arguments constructor:
     public Department(String departmentId, String departmentName, int nextId) {
-        this.departmentId = departmentId;
-        this.departmentName = (validateDepartmentName(departmentName)) ? departmentName: null;
-        //Department.nextId = nextId;
-        this.nextId = nextId;
+        if (!validateDepartmentName(departmentName)) {
+            this.departmentId = null;
+            this.departmentName = null;
+            this.nextId = 0;
+        } else {
+            this.departmentId = departmentId;
+            this.departmentName = departmentName;
+            this.nextId = nextId;
+        }
     }
 
     public static boolean validateDepartmentName(String departmentName) {
-        //TODO:
-        // check if department name contains special characters
-        // if departmentName contains special characters return false
-        // else if departmentName contains only letters or spaces return true.
-        return false;
+        boolean ans = true;
+        if ( departmentName == null ) {
+            return false;
+        }
+        if (hasSpecialChara(departmentName)){
+            ans = false;
+        }
+        if (hasDigits(departmentName)) {
+            ans = false;
+        }
+        return ans;
+    }
+
+    public static boolean hasSpecialChara(String input) {
+        char[] specialCharacters = {'!','@','#','$','%','^','&','*','-','_','+','/'};
+        boolean ans = false;
+
+        for (int i=0; i < input.length(); i++) {
+            for (int j=0; j < specialCharacters.length; j++) {
+                if (input.charAt(i) != specialCharacters[j]) {
+                    j++;
+                } else if (input.charAt(i) == specialCharacters[j]) {
+                    ans = true;
+                }
+            }
+        }
+
+        return ans;
+    }
+
+    public static boolean hasDigits(String input) {
+        int[] digits = {1,2,3,4,5,6,7,8,9,0};
+        boolean ans = false;
+
+        for (int i=0; i < input.length(); i++) {
+            for (int j=0; j < digits.length; j++) {
+                if (Character.getNumericValue(input.charAt(i)) != digits[j]) {
+                    j++;
+                } else if (Character.getNumericValue(input.charAt(i)) == digits[j]) {
+                    ans = true;
+                }
+            }
+        }
+
+        return ans;
+    }
+
+
+    public static boolean hasSpaces(String input) {
+        boolean ans = false;
+
+        for (int i=0; i<input.length(); i++) {
+            if (input.charAt(i) == ' ') {
+                ans = true;
+            }
+        }
+
+        return ans;
     }
 }
