@@ -1,5 +1,8 @@
 package org.example;
 import lombok.*;
+import org.example.util.Util;
+
+import java.util.Arrays;
 
 @NoArgsConstructor
 @ToString
@@ -18,7 +21,7 @@ public class Course {
 
     public Course(String courseId, String courseName, double credits, Department department,Assignment[] assignments,double[] finalScores, int nextId) {
         this.courseId = courseId;
-        this.courseName = courseName;
+        this.courseName = Util.toTitleCase(courseName);
         this.credits = credits;
         this.department = department;
         this.assignments = assignments;
@@ -73,10 +76,15 @@ public class Course {
         return "";
     }
 
+    @Override
     public String toString() {
-        //TODO:
-        // convert course to a string that contains courseId, courseName, credits,
-        // departmentName, assignments, and registeredStudents
-        return "";
+        return "Course{" +
+                "courseId='" + courseId + '\'' +
+                ", courseName='" + courseName + '\'' +
+                ", credits=" + credits +
+                ", department=" + department +
+                ", assignments=" + Arrays.toString(assignments) +
+                ", finalScores=" + Arrays.toString(finalScores) +
+                '}';
     }
 }

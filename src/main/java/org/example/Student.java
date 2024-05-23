@@ -1,5 +1,6 @@
 package org.example;
 import lombok.*;
+import org.example.util.Util;
 
 @NoArgsConstructor
 @EqualsAndHashCode
@@ -12,13 +13,13 @@ public class Student {
     private Gender gender;
     private Address address;
     private Department department;
-    //private Course[] registeredCourses;
+    private Course[] registeredCourses;
     private static int nextId = 1 ;
 
     // All arguments constructor:
     public Student(String studentName, Gender gender, Address address, Department department) {
         this.studentId = getNextId();
-        this.studentName = studentName;
+        this.studentName = Util.toTitleCase(studentName);
         this.gender = gender;
         this.address = address;
         this.department = department;

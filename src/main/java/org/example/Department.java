@@ -1,5 +1,6 @@
 package org.example;
 import lombok.*;
+import org.example.util.Util;
 
 @NoArgsConstructor
 @ToString
@@ -20,7 +21,7 @@ public class Department {
             this.nextId = 0;
         } else {
             this.departmentId = departmentId;
-            this.departmentName = departmentName;
+            this.departmentName = Util.toTitleCase(departmentName);
             this.nextId = nextId;
         }
     }
@@ -67,19 +68,6 @@ public class Department {
                 } else if (Character.getNumericValue(input.charAt(i)) == digits[j]) {
                     ans = true;
                 }
-            }
-        }
-
-        return ans;
-    }
-
-
-    public static boolean hasSpaces(String input) {
-        boolean ans = false;
-
-        for (int i=0; i<input.length(); i++) {
-            if (input.charAt(i) == ' ') {
-                ans = true;
             }
         }
 

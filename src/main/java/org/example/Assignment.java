@@ -23,7 +23,14 @@ public class Assignment {
         //TODO:
         // calculate average score for one assignment
         int[] testScores = {70, 95, 63, 85, 37};
+        int sum = 0;
+        int avg = 0;
 
+        for (int i=0; i < testScores.length; i++) {
+            sum += testScores[i];
+        }
+        System.out.println(sum);
+        avg = sum / testScores.length;
     }
 
     public void generateRandomScore() {
