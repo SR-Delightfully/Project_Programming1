@@ -35,6 +35,11 @@ public class Address {
         }
     }
 
+    /**
+     * Checks whether a postal code is valid based on a few rules.
+     * @param postalCode string containing characters that represent a postal code.
+     * @return true if postalCode follows all the rules, false if not.
+     */
     public static boolean isPostalCodeValid(String postalCode) {
         boolean ans = false;
 
@@ -83,6 +88,11 @@ public class Address {
         return ans;
     }
 
+    /**
+     * Checks whether a string contains a special character ( a character that is neither number nor letter).
+     * @param input a string to be tested.
+     * @return true is string contains a special character, false if not.
+     */
     public static boolean hasSpecialChara(String input) {
         char[] specialCharacters = {'!','@','#','$','%','^','&','*','-','_','+','/'};
         boolean ans = false;

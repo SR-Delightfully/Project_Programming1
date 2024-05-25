@@ -1,6 +1,7 @@
 package org.example;
 import lombok.*;
 import org.example.util.Util;
+import java.util.ArrayList;
 
 @NoArgsConstructor
 @EqualsAndHashCode
@@ -13,7 +14,7 @@ public class Student {
     private Gender gender;
     private Address address;
     private Department department;
-    private Course[] registeredCourses;
+    private ArrayList<Course> registeredCourses;
     private static int nextId = 1 ;
 
     // All arguments constructor:
@@ -25,6 +26,10 @@ public class Student {
         this.department = department;
     }
 
+    /**
+     * provides a string containing the proceeding ID for the corresponding class.
+     * @return a string that looks like "S001", "S002", "S003", etc.
+     */
     public static String getNextId() {
         String num = Integer.toString(nextId);
         String zeroes = "";
@@ -35,28 +40,54 @@ public class Student {
         return 'S' + zeroes + num;
     }
 
-    //public boolean registerCourse(Course course) {
-    public boolean registerCourse() {
-        //TODO:
-        // to register a course, add the course to the student's registeredCourses list
-        // add the student to the course's registeredStudents list
-        // Append a null for the scores of each assignment of the course
-        // if course is already registered, directly return false.
-        return false;
+    /**
+     * adds a new Course class to the list of registeredCourses, and appends null fpr each assignment in the class.
+     * @param course an object representing a school course and contains that pertaining information.
+     * @return true if the Course has been appended, false if not.
+     */
+    public boolean registerCourse(Course course) {
+
+        for (Course registeredCourse : registeredCourses) {
+            if (registeredCourse == course) {
+                return false;
+            } else {
+                registeredCourses.add(course);
+                course.registerStudent(this);
+
+//                Assignment[] assignments = course.getAssignments();
+//                int[] scores = assignments.getScores();
+//
+//                for (int i=0; i < assignments.length; i++) {
+//                    for (int j=0; j < assignments.length; j++) {
+//                        scores[j] = (Integer) null;
+//                    }
+//                }
+            }
+        }
+        return true;
     }
 
-    //public boolean dropCourse(Course course) {
-    public boolean dropCourse() {
-        //TODO:
-        // to drop a course, remove the course from the student's registeredCourses list,
-        // remove student from the course's registeredStudents list
-        // if course is not registered yet, directly return false.
+    /**
+     * removes a new Course class to the list of registeredCourses.
+     * @param course an object representing a school course and contains that pertaining information.
+     * @return true if the Course has been removed, false if not.
+     */
+    public boolean dropCourse(Course course) {
+
+        for (Course registeredCourse : registeredCourses) {
+            if (registeredCourse != course) {
+                return false;
+            } else {
+                registeredCourses.remove(course);
+                course.registeredStudents.remove(this);
+            }
+        }
+
         return false;
     }
 
     public String toSimplifiedString() {
-//        return  studentId + " " + studentName + " " + department.getDepartmentName();
-        return "";
+        return  studentId + " " + studentName + " " + department.getDepartmentName();
     }
 
     @Override

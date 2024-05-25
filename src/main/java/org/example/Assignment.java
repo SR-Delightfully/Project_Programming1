@@ -1,10 +1,12 @@
 package org.example;
-import lombok.*;
 
-import java.util.Arrays;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.Random;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
 @Getter
@@ -12,28 +14,50 @@ import java.util.Random;
 public class Assignment {
     // Field members:
     private String assignmentId;
-    private String assignemntName;
+    private String assignmentName;
     private double weight;
     private double assignmentAverage;
     private int maxScore;
     private int[] scores;
     private static int nextId;
 
-    public void calcAssignmentAvg() {
-        //TODO:
-        // calculate average score for one assignment
-        int[] testScores = {70, 95, 63, 85, 37};
-        int sum = 0;
-        int avg = 0;
-
-        for (int i=0; i < testScores.length; i++) {
-            sum += testScores[i];
-        }
-        System.out.println(sum);
-        avg = sum / testScores.length;
+    public Assignment(String assignmentName, double weight, int maxScore) {
+        this.assignmentId = getNextId();
+        this.assignmentName = assignmentName;
+        this.weight = weight;
+        this.maxScore = maxScore;
     }
 
-    public void generateRandomScore() {
+    /**
+     * provides a string containing the proceeding ID for the corresponding class.
+     * @return a string that looks like "S001", "S002", "S003", etc.
+     */
+    public static String getNextId() {
+        String num = Integer.toString(nextId);
+        nextId++;
+        return num;
+    }
+
+    /**
+     * Calculates the average score for an assignment.
+     */
+    public void calcAssignmentAvg() {
+        double avg;
+        double sum = 0;
+        int numScores = scores.length;
+
+        for (int i=0; i<numScores; i++) {
+            sum += scores[i];
+        }
+
+        avg = sum / numScores;
+        System.out.println(avg);
+    }
+
+    /**
+     * Generates a score, based on a set of rules and the generation of a random number.
+     */
+    public static void generateRandomScore() {
         Random random = new Random();
         int randNum = random.nextInt(10+1);
         int randScore = switch (randNum) {
@@ -50,11 +74,9 @@ public class Assignment {
     public String toString() {
         return "Assignment{" +
                 "assignmentId='" + assignmentId + '\'' +
-                ", assignemntName='" + assignemntName + '\'' +
+                ", assignmentName='" + assignmentName + '\'' +
                 ", weight=" + weight +
-                ", assignmentAverage=" + assignmentAverage +
                 ", maxScore=" + maxScore +
-                ", scores=" + Arrays.toString(scores) +
                 '}';
     }
 }
