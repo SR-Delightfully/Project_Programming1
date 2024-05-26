@@ -5,11 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 @NoArgsConstructor
 @EqualsAndHashCode
-@Getter
 @Setter
 public class Assignment {
     // Field members:
@@ -18,14 +18,14 @@ public class Assignment {
     private double weight;
     private double assignmentAverage;
     private int maxScore;
-    private int[] scores;
+    private ArrayList<Integer> scores;
     private static int nextId;
 
     public Assignment(String assignmentName, double weight, int maxScore) {
-        this.assignmentId = getNextId();
         this.assignmentName = assignmentName;
         this.weight = weight;
         this.maxScore = maxScore;
+        this.scores = new ArrayList<>();
     }
 
     /**
@@ -44,10 +44,10 @@ public class Assignment {
     public void calcAssignmentAvg() {
         double avg;
         double sum = 0;
-        int numScores = scores.length;
+        int numScores = scores.size();
 
-        for (int i=0; i<numScores; i++) {
-            sum += scores[i];
+        for (Integer score : scores) {
+            sum += score;
         }
 
         avg = sum / numScores;
@@ -78,5 +78,24 @@ public class Assignment {
                 ", weight=" + weight +
                 ", maxScore=" + maxScore +
                 '}';
+    }
+
+    public String getAssignmentId() {
+        return assignmentId;
+    }
+    public String getAssignmentName() {
+        return assignmentName;
+    }
+    public double getWeight() {
+        return weight;
+    }
+    public double getAssignmentAverage() {
+        return maxScore;
+    }
+    public int getMaxScore() {
+        return maxScore;
+    }
+    public ArrayList<Integer> getScores() {
+        return scores;
     }
 }

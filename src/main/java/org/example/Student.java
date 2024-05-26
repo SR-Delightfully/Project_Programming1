@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 @NoArgsConstructor
 @EqualsAndHashCode
-@Getter
 @Setter
 public class Student {
     // Field members:
@@ -53,15 +52,6 @@ public class Student {
             } else {
                 registeredCourses.add(course);
                 course.registerStudent(this);
-
-//                Assignment[] assignments = course.getAssignments();
-//                int[] scores = assignments.getScores();
-//
-//                for (int i=0; i < assignments.length; i++) {
-//                    for (int j=0; j < assignments.length; j++) {
-//                        scores[j] = (Integer) null;
-//                    }
-//                }
             }
         }
         return true;
@@ -97,5 +87,24 @@ public class Student {
                 ", studentName='" + studentName + '\'' +
                 ", department=" + department +
                 '}';
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+    public String getStudentName() {
+        return studentName;
+    }
+    public Gender getGender() {
+        return gender;
+    }
+    public Address getAddress() {
+        return address;
+    }
+    public Department getDepartment() {
+        return department;
+    }
+    public ArrayList<Course> getRegisteredCourses() {
+        return registeredCourses;
     }
 }

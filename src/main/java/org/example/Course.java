@@ -4,12 +4,12 @@ import org.example.util.Util;
 
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Getter
 @Setter
 public class Course {
     // Field members:
@@ -55,11 +55,11 @@ public class Course {
         registeredStudents.add(student);
         student.registerCourse(this);
 
-        finalScores.add(null);
+//        finalScores.add(null);
 
-//        for (Assignment assignment : assignments) {
-//            assignment.getScores().add(null);
-//        }
+        for (Assignment assignment : assignments) {
+            assignment.getScores().add(null);
+        }
 
         return true;
     }
@@ -73,12 +73,12 @@ public class Course {
 
         for (int i = 0; i < weightedScores.length; i++) {
             double total = 0;
-            for (Assignment assignment : assignments) {
-                int[] scores = assignment.getScores();
-                double weight = assignment.getWeight();
-                total += scores[i] * weight;
+            for (int j=0; j < assignments.size(); j++) {
+                ArrayList<Integer> scores = assignments.get(j).getScores();
+                double weight = assignments.get(j).getWeight();
+                total += scores.get(j) * weight;
             }
-            weightedScores[i] = (int) total * 100;
+            weightedScores[i] = (int) (total * 100);
         }
 
         return weightedScores;
@@ -102,13 +102,29 @@ public class Course {
      * generates random scores for each student's assignment and calculates the final score each student.
      */
     public void generateScores() {
-        //TODO:
-        // generate random scores for each assignment and student,
-        // calculate the final score for each student.
+        Random random = new Random();
+
         for (int i=0; i<assignments.size(); i++) {
-            if (assignments.get(i) == null) {
-                //assignments[i] = Assignment.generateRandomScore(); //???
+            for (int j=0; j<assignments.get(i).getScores().size(); j++) {
+                Assignment assignment = assignments.get(i);
+                assignment.getScores().set(i, random.nextInt(0, assignment.getMaxScore()));
             }
+        }
+
+        for (int i=0; i < finalScores.size(); i++) {
+            double total = 0;
+
+            for (int j=0; j < assignments.size(); j++) {
+                Assignment assignment = assignments.get(i);
+
+                double currentScore = (double) assignment.getScores().get(i);
+                double maxScore = assignment.getMaxScore();
+                double weight = assignment.getWeight();
+
+                total += currentScore / maxScore * weight;
+            }
+
+            finalScores.set(i, total * 100);
         }
     }
 
@@ -161,5 +177,28 @@ public class Course {
                 ", assignments=" + assignments +
                 ", registeredStudents=" + registeredStudents +
                 '}';
+    }
+
+    // Adding getters manually to get rid of "errors"...
+    public String getCourseId() {
+        return courseId;
+    }
+    public String getCourseName() {
+        return courseName;
+    }
+    public double getCredits() {
+        return credits;
+    }
+    public Department getDepartment() {
+        return department;
+    }
+    public ArrayList<Assignment> getAssignments() {
+        return assignments;
+    }
+    public ArrayList<Student> getRegisteredStudents() {
+        return registeredStudents;
+    }
+    public ArrayList<Double> getFinalScores() {
+        return finalScores;
     }
 }

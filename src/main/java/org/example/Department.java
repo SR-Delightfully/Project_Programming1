@@ -5,7 +5,6 @@ import org.example.util.Util;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Getter
 @Setter
 public class Department {
     // Field members:
@@ -89,5 +88,12 @@ public class Department {
         }
 
         return ans;
+    }
+
+    public String getDepartmentId() {
+        return departmentId;
+    }
+    public String getDepartmentName() {
+        return departmentName;
     }
 }
